@@ -1,4 +1,34 @@
-<!DOCTYPE html>
+<?php
+// ข้อมูลการเชื่อมต่อฐานข้อมูล
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "testdb";
+
+// สร้างการเชื่อมต่อ
+$conn = new mysqli($host, $user, $pass, $dbname);
+
+// ตรวจสอบการเชื่อมต่อ
+if ($conn->connect_error) {
+    die("เชื่อมต่อไม่สำเร็จ: " . $conn->connect_error);
+}
+
+// คำสั่ง SQL
+$sql = "SELECT id, name, email FROM users";
+$result = $conn->query($sql);
+
+// แสดงผลข้อมูล
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        echo "ID: " . $row["id"] . " - ชื่อ: " . $row["name"] . " - Email: " . $row["email"] . "<br>";
+    }
+} else {
+    echo "ไม่มีข้อมูล";
+}
+
+// ปิดการเชื่อมต่อ
+$conn->close();
+?><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -194,3 +224,4 @@
 
 </body>
 </html>
+
